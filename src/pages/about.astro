@@ -1,5 +1,24 @@
 ---
+import '../styles/global.css';
 
+const pageTitle = "About Me";
+
+const identity = {
+	firstName: 'Clayton',
+	country: 'Canada',
+	occupation: 'Occupied',
+	hobbies: ['being', 'occupied'],
+};
+const skills = ['being', 'Occupied', 'HTML'];
+
+const happy = true;
+const finished = false;
+const goal = 3;
+
+const skillColor = 'goldenrod';
+const fontWeight = 'bold';
+const textTransform = 'uppercase';
+const styleVars = { skillColor, fontWeight, textTransform };
 ---
 
 <html lang="en">
@@ -8,16 +27,42 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>{pageTitle}</title>
+		<style define:vars={styleVars}>
+		h1 {
+			color: purple;
+			font-size: 4rem;
+		}
+		.skill {
+			color: var(--skillColor);
+			font-weight: var(--fontWeight);
+			text-transform: var(--textTransform);
+		}
+		</style>
 	</head>
 	<body>
 		<a href="/">Home</a>
 		<a href="/about">About</a>
 		<a href="/blog">Blog</a>
 
+		<h1>{pageTitle}</h1>
 
-		<h1>My ABOUT Site</h1>
-		<h2>Something about  stuff</h2>
-		<p>More descriptions and things</p>
+		{happy && <p>I am happy to be occupied</p>}
+		{finished && <p>I've finished with this</p>}
+		{goal === 3 ? <p>My goal is to finish in 3 days</p> : <p>My goal is not 3 days</p>}
+
+		<p>Here are some things about me<p>
+		<ul>
+			<li>My name is {identity.firstName}.</li>
+			<li>I live in {identity.country} and I work as a {identity.occupation}.</li>
+			{identity.hobbies.length >= 2 && 
+				<li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+			}
+		</ul>
+		<p>My skills are:</p>
+		<ul>
+			{skills.map((skill) => <li class="skill">{skill}</li>)}
+		</ul>
+
 	</body>
 </html>
