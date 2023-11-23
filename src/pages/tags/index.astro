@@ -1,9 +1,11 @@
 ---
+import { getCollection } from 'astro:content';
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Tags from '../../components/Tags.astro';
 
-const posts = await Astro.glob('../posts/*.md');
-const tags = [...new Set(posts.map((post) => post.frontmatter.tags).flat())];
+const posts = await getCollection('posts');
+const tags = [...new Set(posts.map((post) => post.data.tags).flat())];
 ---
 <BaseLayout pageTitle="tags">
 	<Tags tags={tags} />
